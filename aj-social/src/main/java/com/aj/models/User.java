@@ -1,25 +1,59 @@
 package com.aj.models;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+//to auto-create table in mysql, use @Entity.
+//if you need class and table names to be different - @Table
+
+@Entity
+@Table(name="users")
 public class User {
 	
+	@Id
+	private Integer id;
+	@Column(name="my_name")
+	private String firstName;
+	
+	private String lastName;
+	
+	@Column(name="gmail")
+	private String email;
+	private String password;
+	
+	
+	
+
 	
 	public User () {
 		// CONSTRUCTOR STUB 
 	}
 	
+
 	
-	public User(String firstName, String lastName,String email, String password) {
+	public User(Integer id, String firstName, String lastName, String email, String password) {
 		super();
+		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
 		this.password = password;
 	}
 
-	private String firstName;
-	private String lastName;
-	private String email;
-	private String password;
+	
+	public Integer getId() {
+		return id;
+	}
+
+
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+
 	public String getFirstName() {
 		return firstName;
 	}
@@ -58,7 +92,8 @@ public class User {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
+
+		
 
 	
 }
