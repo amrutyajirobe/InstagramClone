@@ -3,6 +3,7 @@ package com.aj.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,10 +13,36 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.aj.models.User;
+import com.aj.repository.UserRepository;
 
 @RestController
 public class UserController {
+	
+	
+	//to use user repository from UserRepository from com.aj.repository
+	@Autowired 
+	UserRepository userRepository;
 
+	
+	@PostMapping("/users")
+	public User createUser(@RequestBody User user) {
+		User newUser = new User();
+		newUser.setId(user.getId());
+		newUser.setFirstName(user.getFirstName());
+		newUser.setLastName(user.getLastName());
+		newUser.setEmail(user.getEmail());
+		newUser.setPassword(user.getPassword());
+		
+		User savedUser = userRepository.save(newUser);
+		
+		return savedUser;
+		
+	}
+	
+
+	
+	
+	
 	@GetMapping ("/users")
 	public List<User> getUsers () {
 		List<User> users = new ArrayList<>();
@@ -47,18 +74,7 @@ public class UserController {
 	}
 	
 	
-	@PostMapping("/users")
-	public User createUser(@RequestBody User user) {
-		User newUser = new User();
-		newUser.setId(user.getId());
-		newUser.setFirstName(user.getFirstName());
-		newUser.setLastName(user.getLastName());
-		newUser.setEmail(user.getEmail());
-		newUser.setPassword(user.getPassword());
-		
-		
-		return newUser;
-	}
+
 	
 	
 	
